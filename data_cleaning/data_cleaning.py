@@ -130,4 +130,4 @@ print(df.describe())
 # categorical columns
 for col in ["branch","gender","product_category","payment_method"]:
     print(df[col].value_counts(dropna=False))
-    print()
+    print()   
