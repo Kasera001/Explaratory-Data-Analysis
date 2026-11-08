@@ -1,6 +1,7 @@
 import numpy as np  # type: ignore[import-not-found]
 import pandas as pd  # type: ignore[import-not-found]
 import random
+from pathlib import Path
 
 rng = np.random.default_rng(42)
 random.seed(42)
@@ -101,3 +102,32 @@ df.loc[pick(0.003), "discount_pct"] = 150
 df.to_csv("savanna_retail_sales_raw.csv", index=False)
 print(df.shape)
 print(df.head())
+
+
+
+
+#------4.DATA CLEAN  PROCESS--------#
+csv_path = Path(__file__).with_name("savanna_retail_sales_raw.csv")
+df = pd.read_csv(csv_path)
+
+# shape and a first look
+print(df.shape)
+print(df.head())
+
+#type and non-null counts
+df.info()
+
+# find the missing values
+print(df.isna().sum())
+
+# find duplicates
+print(df.duplicated().sum())
+
+# Numeric columns
+print(df.describe())
+
+
+# categorical columns
+for col in ["branch","gender","product_category","payment_method"]:
+    print(df[col].value_counts(dropna=False))
+    print()
